@@ -1,0 +1,7 @@
+{% extends 'crud/list.html' %}
+{% block list_columns %}
+<td class="px-4 py-3 fw-bold">{{ item.exception_id }}</td>
+<td class="px-4 py-3"><a href="{% url 'package_list' %}" class="text-decoration-none">#{{ item.package.package_id }}</a></td>
+<td class="px-4 py-3 text-danger fw-semibold">{{ item.exception_type }}</td>
+<td class="px-4 py-3">{{ item.date_reported|date:"M d, Y H:i" }}</td>
+{% endblock %}

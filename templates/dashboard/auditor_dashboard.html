@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Auditor Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary-custom fw-bold"><i class="bi bi-file-earmark-bar-graph me-2"></i>Auditor Dashboard</h2>
+    <span class="badge bg-dark fs-6 fw-normal">Auditor Role</span>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card text-white shadow-sm" style="background: linear-gradient(135deg, #0d47a1, #1565c0);">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-uppercase fw-bold mb-1 small opacity-75">Audit Log Entries</p>
+                        <h2 class="fw-bold mb-0">{{ total_audit_logs }}</h2>
+                    </div>
+                    <i class="bi bi-journal-check fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-dark shadow-sm" style="background: linear-gradient(135deg, #f5b041, #f39c12);">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-uppercase fw-bold mb-1 small opacity-75">Total Payments</p>
+                        <h2 class="fw-bold mb-0">${{ total_payments }}</h2>
+                    </div>
+                    <i class="bi bi-cash-coin fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-search me-2 text-accent"></i>Audit Tools</h5>
+    </div>
+    <div class="card-body p-4 d-flex flex-wrap gap-2">
+        <a href="{% url 'audit_list' %}" class="btn btn-primary"><i class="bi bi-journal-text me-1"></i> System Logs</a>
+        <a href="{% url 'payment_list' %}" class="btn btn-warning text-dark"><i class="bi bi-cash-stack me-1"></i> Payments</a>
+        <a href="{% url 'package_list' %}" class="btn btn-outline-primary"><i class="bi bi-box-seam me-1"></i> All Packages</a>
+    </div>
+</div>
+{% endblock %}

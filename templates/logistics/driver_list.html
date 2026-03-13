@@ -1,0 +1,8 @@
+{% extends 'crud/list.html' %}
+{% block list_columns %}
+<td class="px-4 py-3 fw-bold">{{ item.driver_id }}</td>
+<td class="px-4 py-3">{{ item.name }}</td>
+<td class="px-4 py-3">{{ item.phone }}</td>
+<td class="px-4 py-3">{{ item.vehicle_type }}</td>
+<td class="px-4 py-3">{{ item.company.name }}</td>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'crud/list.html' %}
+{% block list_columns %}
+<td class="px-4 py-3 fw-bold">{{ item.receiver_id }}</td>
+<td class="px-4 py-3">{{ item.name }}</td>
+<td class="px-4 py-3">{{ item.phone }}</td>
+<td class="px-4 py-3">{{ item.address|truncatechars:30 }}</td>
+{% endblock %}

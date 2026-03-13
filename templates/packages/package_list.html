@@ -1,0 +1,19 @@
+{% extends 'crud/list.html' %}
+{% block list_columns %}
+<td class="px-4 py-3 fw-bold">#{{ item.package_id }}</td>
+<td class="px-4 py-3">{{ item.sender.name }}</td>
+<td class="px-4 py-3">{{ item.receiver.name }}</td>
+<td class="px-4 py-3">{{ item.driver.name|default:"Not Assigned" }}</td>
+<td class="px-4 py-3">
+    {% if item.status == 'Pending' %}
+        <span class="badge bg-secondary rounded-pill fw-normal">Pending</span>
+    {% elif item.status == 'In Transit' %}
+        <span class="badge bg-primary rounded-pill fw-normal">In Transit</span>
+    {% elif item.status == 'Delivered' %}
+        <span class="badge bg-success rounded-pill fw-normal">Delivered</span>
+    {% elif item.status == 'Exception' %}
+        <span class="badge bg-danger rounded-pill fw-normal">Exception</span>
+    {% endif %}
+</td>
+<td class="px-4 py-3">{{ item.date_sent|date:"M d, Y" }}</td>
+{% endblock %}

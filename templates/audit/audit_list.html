@@ -1,0 +1,19 @@
+{% extends 'crud/list.html' %}
+{% block list_columns %}
+<td class="px-4 py-3 fw-bold">{{ item.log_id }}</td>
+<td class="px-4 py-3"><span class="badge bg-light text-dark border">{{ item.table_name }}</span></td>
+<td class="px-4 py-3">{{ item.record_id }}</td>
+<td class="px-4 py-3">
+    {% if item.action == "CREATE" %}
+        <span class="text-success fw-bold"><i class="bi bi-plus-circle"></i> Create</span>
+    {% elif item.action == "UPDATE" %}
+        <span class="text-primary fw-bold"><i class="bi bi-pencil-square"></i> Update</span>
+    {% elif item.action == "DELETE" %}
+        <span class="text-danger fw-bold"><i class="bi bi-trash"></i> Delete</span>
+    {% else %}
+        <span>{{ item.action }}</span>
+    {% endif %}
+</td>
+<td class="px-4 py-3">{{ item.performed_by }}</td>
+<td class="px-4 py-3">{{ item.timestamp|date:"M d, Y H:i:s" }}</td>
+{% endblock %}
