@@ -1,16 +1,25 @@
 import os
+import sys
 import django
 from decimal import Decimal
 
+# Add the current directory to sys.path to help linters and standalone execution
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# Initialize Django environment
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'courier_system.settings')
 django.setup()
 
+# App Model Imports
 from companies.models import Company
 from logistics.models import BusRoute, Station, Driver
 from clients.models import Client, Receiver
 from packages.models import Package, PackageType
-
 from accounts.models import User
+from tracking.models import PackageException
+from payments.models import Payment
+from audit.models import AuditLog
+
 
 def seed_data():
     print("Seeding database...")
@@ -58,7 +67,7 @@ def seed_data():
     Station.objects.get_or_create(route=r1, station_name="Nyabugogo", city="Kigali")
     Station.objects.get_or_create(route=r2, station_name="Rubavu Station", city="Gisenyi")
 
-    # Drivers - Username matches driver name for simple testing
+    # Drivers
     d1, _ = Driver.objects.get_or_create(name="driver_user", phone="+250 788 555", vehicle_type="Toyota Hiace", company=c1)
     d2, _ = Driver.objects.get_or_create(name="Saidi Hakizimana", phone="+250 788 666", vehicle_type="Isuzu Elf", company=c2)
 
@@ -75,7 +84,6 @@ def seed_data():
     )
 
     # Exceptions
-    from tracking.models import PackageException
     PackageException.objects.get_or_create(
         package=p2,
         exception_type="Damaged",
@@ -83,7 +91,6 @@ def seed_data():
     )
 
     # Payments
-    from payments.models import Payment
     Payment.objects.get_or_create(
         package=p1,
         amount=Decimal('5000.00'),
@@ -91,15 +98,15 @@ def seed_data():
     )
 
     # Audit Logs
-    from audit.models import AuditLog
     AuditLog.objects.get_or_create(
-        performed_by=User.objects.get(username='manager'),
+        performed_by="manager",
         action='CREATE',
         table_name='Package',
-        record_id=str(p1.package_id)
+        record_id=p1.package_id
     )
 
     print("Database seeding completed successfully.")
+
 
 if __name__ == "__main__":
     seed_data()
