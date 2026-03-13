@@ -82,6 +82,23 @@ def seed_data():
         description="Box arrived crushed at Kigali Main station."
     )
 
+    # Payments
+    from payments.models import Payment
+    Payment.objects.get_or_create(
+        package=p1,
+        amount=Decimal('5000.00'),
+        payment_method="Mobile Money"
+    )
+
+    # Audit Logs
+    from audit.models import AuditLog
+    AuditLog.objects.get_or_create(
+        user=User.objects.get(username='manager'),
+        action='CREATE',
+        table_name='Package',
+        record_id=str(p1.package_id)
+    )
+
     print("Database seeding completed successfully.")
 
 if __name__ == "__main__":
