@@ -59,8 +59,28 @@ def seed_data():
     Station.objects.get_or_create(route=r2, station_name="Rubavu Station", city="Gisenyi")
 
     # Drivers - Username matches driver name for simple testing
-    Driver.objects.get_or_create(name="driver_user", phone="+250 788 555", vehicle_type="Toyota Hiace", company=c1)
-    Driver.objects.get_or_create(name="Saidi Hakizimana", phone="+250 788 666", vehicle_type="Isuzu Elf", company=c2)
+    d1, _ = Driver.objects.get_or_create(name="driver_user", phone="+250 788 555", vehicle_type="Toyota Hiace", company=c1)
+    d2, _ = Driver.objects.get_or_create(name="Saidi Hakizimana", phone="+250 788 666", vehicle_type="Isuzu Elf", company=c2)
+
+    # Packages
+    p1, _ = Package.objects.get_or_create(
+        sender=cl1, receiver=rc1, package_type=pt1, 
+        weight=2.5, status="In Transit",
+        driver=d1, company=c1, route=r1, delivery_fee=Decimal('5000.00')
+    )
+    p2, _ = Package.objects.get_or_create(
+        sender=cl2, receiver=rc2, package_type=pt2, 
+        weight=1.0, status="Exception",
+        driver=d2, company=c2, route=r2, delivery_fee=Decimal('3500.00')
+    )
+
+    # Exceptions
+    from tracking.models import PackageException
+    PackageException.objects.get_or_create(
+        package=p2,
+        exception_type="Damaged",
+        description="Box arrived crushed at Kigali Main station."
+    )
 
     print("Database seeding completed successfully.")
 
