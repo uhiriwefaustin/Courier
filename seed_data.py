@@ -93,7 +93,7 @@ def seed_data():
     # Audit Logs
     from audit.models import AuditLog
     AuditLog.objects.get_or_create(
-        user=User.objects.get(username='manager'),
+        performed_by=User.objects.get(username='manager'),
         action='CREATE',
         table_name='Package',
         record_id=str(p1.package_id)
